@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <!--  <import type="com.hx.ice.model.SmsCodeModel" />-->
+        <variable
+            name="smsCodeModel"
+            type="com.hx.ice.model.SmsCodeModel" />
+
+        <variable
+            name="viewListener"
+            type="com.hx.ice.act.login.OnVerificationCodeListener" />
+
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".act.login.ui.VerificationCodeActivity">
+
+        <include
+            android:id="@+id/layout"
+            layout="@layout/title_layout" />
+
+        <TextView
+            android:id="@+id/tips_smsCode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_28"
+            android:layout_marginTop="@dimen/dp_24"
+            android:text="@string/tips_Verification_smsCode"
+            android:textColor="@color/color_222222"
+            android:textSize="@dimen/sp_26"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layout" />
+
+        <TextView
+            android:id="@+id/tv_beenSent"
+            android:layout_width="304dp"
+            android:layout_height="18dp"
+            android:layout_marginStart="@dimen/dp_28"
+            android:layout_marginTop="@dimen/dp_12"
+            android:text="@string/has_been_sent"
+            android:textColor="@color/color_666666"
+            android:textSize="@dimen/sp_14"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tips_smsCode" />
+
+        <com.hx.ice.widget.SecurityCodeView
+            android:id="@+id/securityCodeView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_36"
+            app:layout_constraintTop_toBottomOf="@+id/tv_beenSent" />
+        <!--   android:text="@{""+smsCodeModel??@string/Resend}"-->
+        <TextView
+            android:id="@+id/tv_Resend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_28"
+            android:layout_marginTop="@dimen/dp_20"
+            android:paddingStart="@dimen/dp_16"
+            android:paddingTop="@dimen/dp_10"
+            android:paddingEnd="@dimen/dp_16"
+            android:paddingBottom="@dimen/dp_10"
+            android:text='@{smsCodeModel.countDown}'
+            android:textColor="@color/color_999999"
+            android:textSize="@dimen/sp_12"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/securityCodeView"
+            tools:text="@string/Resend" />
+
+        <!-- android:onClick="@{handlers::onClickFriend}"-->
+        <!--  android:onClick="@{()->data.addNumbers()}"-->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_70"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_Resend">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Didn"
+                android:textColor="@color/color_999999"
+                android:textSize="@dimen/sp_12" />
+
+            <TextView
+                android:id="@+id/Change_Number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{viewListener.changeNumberClick}"
+                android:padding="@dimen/dp_8"
+                android:text="@string/Change_Number"
+                android:textColor="@color/color_666666"
+                android:textSize="@dimen/sp_12" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

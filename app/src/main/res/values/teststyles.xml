@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="textStyle_s12_c999999" >
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:maxLength">1</item>
+        <item name="android:textColor">@color/color_999999</item>
+        <item name="android:textSize">@dimen/sp_12</item>
+    </style>
+
+    <style name="textStyle_s14_c666666" >
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:maxLength">1</item>
+        <item name="android:textColor">@color/color_666666</item>
+        <item name="android:textSize">@dimen/sp_14</item>
+    </style>
+
+    <style name="textStyle_s16_c666666" >
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:maxLength">1</item>
+        <item name="android:textColor">@color/color_666666</item>
+        <item name="android:textSize">@dimen/sp_16</item>
+    </style>
+
+    <style name="textStyle_s14_c222222" >
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:maxLength">1</item>
+        <item name="android:textColor">@color/color_222222</item>
+        <item name="android:textSize">@dimen/sp_14</item>
+    </style>
+
+    <style name="textStyle_s26_c222222" >
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:maxLength">1</item>
+        <item name="android:textColor">@color/color_222222</item>
+        <item name="android:textSize">@dimen/sp_26</item>
+    </style>
+
+</resources>

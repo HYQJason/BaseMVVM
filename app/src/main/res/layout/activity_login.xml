@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@mipmap/login_bg"
+        tools:context=".act.login.ui.LoginActivity">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/logo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.35" />
+
+
+        <Button
+            android:id="@+id/bt_sms"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_44"
+            android:layout_marginBottom="@dimen/dp_16"
+            android:background="@drawable/login_button"
+            android:onClick="loginClick"
+            android:layout_marginStart="@dimen/dp_36"
+            android:layout_marginEnd="@dimen/dp_36"
+            android:text="@string/SMS"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_16"
+            app:layout_constraintBottom_toTopOf="@+id/bt_password"
+           />
+
+        <Button
+            android:id="@+id/bt_password"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_44"
+            android:layout_marginStart="@dimen/dp_36"
+            android:layout_marginEnd="@dimen/dp_36"
+            android:layout_marginBottom="@dimen/dp_16"
+            android:background="@drawable/login_button"
+            android:onClick="loginClick"
+            android:text="@string/Password_Login"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_16"
+            app:layout_constraintBottom_toTopOf="@+id/bt_facebook" />
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/bt_facebook"
+            style="@style/facebook_ButtonStyle"
+            android:layout_marginStart="@dimen/dp_36"
+            android:layout_marginEnd="@dimen/dp_36"
+            android:layout_marginBottom="@dimen/dp_44"
+            android:text="@string/Facebook_Login"
+            android:onClick="loginClick"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_16"
+            app:cornerRadius="@dimen/dp_4"
+            app:icon="@mipmap/facebook_text"
+            app:iconGravity="textStart"
+            app:iconPadding="@dimen/dp_20"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:ignore="MissingConstraints" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

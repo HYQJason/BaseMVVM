@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="welcomeModel"
+            type="com.hx.ice.model.WelcomeModel" />
+
+        <variable
+            name="onClickUtil"
+            type="com.hx.ice.util.ListenerUtil" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".act.welcome.WelcomeActivity">
+
+        <TextView
+            android:id="@+id/tv_skip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="@dimen/dp_40"
+            android:layout_marginEnd="@dimen/dp_40"
+            android:background="@color/color_999999"
+            android:onClick="@{onClickUtil.onClick}"
+            android:paddingLeft="@dimen/dp_15"
+            android:paddingTop="@dimen/dp_5"
+            android:paddingRight="@dimen/dp_15"
+            android:paddingBottom="@dimen/dp_5"
+            android:text="@{welcomeModel.countDownLiveData}"
+            android:textColor="@color/color_FFFFFF"
+            android:textSize="@dimen/sp_12" />
+
+    </RelativeLayout>
+</layout>

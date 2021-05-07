@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_49"
+        android:layout_marginStart="@dimen/dp_28"
+        android:layout_marginEnd="@dimen/dp_28"
+        android:orientation="horizontal">
+
+        <com.hx.ice.widget.BackEditText
+            android:id="@+id/item_code_iv1"
+            style="@style/text_editStyle"
+          />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+        <com.hx.ice.widget.BackEditText
+            android:id="@+id/item_code_iv2"
+            style="@style/text_editStyle" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+        <com.hx.ice.widget.BackEditText
+            android:id="@+id/item_code_iv3"
+            style="@style/text_editStyle" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+        <com.hx.ice.widget.BackEditText
+            android:id="@+id/item_code_iv4"
+            style="@style/text_editStyle" />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+        <com.hx.ice.widget.BackEditText
+            android:id="@+id/item_code_iv5"
+            style="@style/text_editStyle" />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+        <com.hx.ice.widget.BackEditText
+            android:id="@+id/item_code_iv6"
+            style="@style/text_editStyle"
+          />
+
+    </LinearLayout>
+</RelativeLayout>

@@ -1,0 +1,87 @@
+Index: app/src/main/java/com/hx/ice/act/login/ui/VerificationCodeActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.hx.ice.act.login.ui\r\n\r\nimport android.os.Bundle\r\nimport android.util.Log\r\nimport androidx.core.content.ContextCompat\r\nimport com.alibaba.android.arouter.facade.annotation.Autowired\r\nimport com.alibaba.android.arouter.facade.annotation.Route\r\nimport com.alibaba.android.arouter.launcher.ARouter\r\nimport com.hx.ice.R\r\nimport com.hx.ice.act.login.OnVerificationCodeListener\r\nimport com.hx.ice.base.BaseActivity\r\nimport com.hx.ice.common.RouterConstants.VERIFICATION_SMS_CODE\r\nimport com.hx.ice.databinding.ActivityVerificationCodeBinding\r\nimport com.hx.ice.model.SmsCodeModel\r\nimport com.hx.ice.util.ListenerUtil\r\nimport com.hx.ice.util.Preference\r\nimport com.hx.ice.util.RxTimerUtil\r\nimport com.hx.ice.widget.LoginSuccessDialog\r\nimport com.hx.ice.widget.SecurityCodeView\r\n\r\n\r\n/**\r\n * @ClassName VerificationCodeActivity\r\n * @description 描述 验证短信验证码\r\n * @author: Jason\r\n * @date:\r\n */\r\n@Route(path = VERIFICATION_SMS_CODE)\r\nclass VerificationCodeActivity : BaseActivity<ActivityVerificationCodeBinding, SmsCodeModel>() {\r\n    @JvmField\r\n    @Autowired\r\n    var areaCode = \"\"\r\n\r\n    @JvmField\r\n    @Autowired\r\n    var phone = \"\"\r\n\r\n    @JvmField\r\n    @Autowired\r\n    var type = -1\r\n\r\n    var accessToken by Preference(\"accessToken\", \"\")\r\n    var inviterCode by Preference(\"inviterCode\", \"\")\r\n    var nickname by Preference(\"nickname\", \"\")\r\n\r\n    override fun getLayoutId() = R.layout.activity_verification_code\r\n\r\n    override fun initialize(savedInstanceState: Bundle?) {\r\n        ARouter.getInstance().inject(this)\r\n\r\n        binding.viewListener = OnVerificationCodeListener(this)\r\n\r\n        binding.smsCodeModel = viewModel\r\n\r\n        viewModel.sendCode(areaCode, phone, type)\r\n\r\n        viewModel.sendCodeLiveData.observe(this) {\r\n            if (it) startCountDown()\r\n        }\r\n\r\n        viewModel.loginLiveData.observe(this) {\r\n            accessToken = it.accessToken ?: \"\"\r\n            inviterCode = it.inviterCode ?: \"\"\r\n            nickname = it.nickname ?: \"\"\r\n            LoginSuccessDialog.getInstance()?.show(supportFragmentManager, \"\")\r\n            finish()\r\n        }\r\n\r\n        binding.securityCodeView.setInputCompleteListener(object : SecurityCodeView.InputCompleteListener {\r\n            override fun inputComplete(code: String?) {\r\n                code?.run {\r\n                    viewModel.login(areaCode, \"\", phone, \"\", code, \"\", 1)\r\n                }\r\n            }\r\n        })\r\n    }\r\n\r\n    override fun createViewModel() = SmsCodeModel()\r\n\r\n    private fun startCountDown() {\r\n        RxTimerUtil.startTimer(60,\r\n            {\r\n                viewModel.setCountDown(\"${getString(R.string.Resend)} ${it}s\")\r\n            }, {\r\n                viewModel.setCountDown(\"Resend Again\")\r\n                binding.tvResend.setTextColor(ContextCompat.getColor(this, R.color.color_FF2F51))\r\n            })\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/hx/ice/act/login/ui/VerificationCodeActivity.kt	(revision 162abf6f9827306ffbc65636520f8267eac161d4)
++++ app/src/main/java/com/hx/ice/act/login/ui/VerificationCodeActivity.kt	(date 1619684894075)
+@@ -65,7 +65,15 @@
+             LoginSuccessDialog.getInstance()?.show(supportFragmentManager, "")
+             finish()
+         }
++        viewModel.loginStateLiveData.observe(this){
++            if (!it){
++                binding.securityCodeView.run {
++                    clearEditText(this@VerificationCodeActivity)
++                    showInput(this@VerificationCodeActivity)
++                }
++            }
+ 
++        }
+         binding.securityCodeView.setInputCompleteListener(object : SecurityCodeView.InputCompleteListener {
+             override fun inputComplete(code: String?) {
+                 code?.run {
+Index: app/src/main/res/layout/activity_main.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<layout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\">\r\n\r\n    <data>\r\n\r\n    </data>\r\n\r\n    <androidx.constraintlayout.widget.ConstraintLayout\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"match_parent\"\r\n        tools:context=\".act.main.MainActivity\">\r\n\r\n        <TextView\r\n            android:id=\"@+id/tv_login\"\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:padding=\"@dimen/dp_20\"\r\n            android:text=\"Login\"\r\n            app:layout_constraintBottom_toBottomOf=\"parent\"\r\n            app:layout_constraintLeft_toLeftOf=\"parent\"\r\n            app:layout_constraintRight_toRightOf=\"parent\"\r\n            app:layout_constraintTop_toTopOf=\"parent\" />\r\n\r\n    </androidx.constraintlayout.widget.ConstraintLayout>\r\n</layout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_main.xml	(revision 162abf6f9827306ffbc65636520f8267eac161d4)
++++ app/src/main/res/layout/activity_main.xml	(date 1619685127026)
+@@ -17,7 +17,7 @@
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:padding="@dimen/dp_20"
+-            android:text="Login"
++            android:text="main"
+             app:layout_constraintBottom_toBottomOf="parent"
+             app:layout_constraintLeft_toLeftOf="parent"
+             app:layout_constraintRight_toRightOf="parent"
+Index: app/src/main/java/com/hx/ice/model/SmsCodeModel.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.hx.ice.model\r\n\r\nimport androidx.lifecycle.MutableLiveData\r\nimport com.hx.ice.act.login.bean.LoginBean\r\nimport com.hx.ice.base.BaseViewModel\r\nimport com.hx.ice.net.ApiClient\r\nimport com.hx.ice.net.service.IceService\r\nimport com.hx.ice.util.RequestUtil\r\nimport java.util.*\r\n\r\n/**\r\n * @ClassName: SmsCode\r\n * @Description:\r\n * @Author: WY-HX\r\n * @Date: 2021/4/25 14:53\r\n */\r\nclass SmsCodeModel : BaseViewModel() {\r\n    val countDown = MutableLiveData<String>()\r\n    val sendCodeLiveData = MutableLiveData<Boolean>()\r\n    val loginLiveData = MutableLiveData<LoginBean>()\r\n\r\n    fun sendCode(areaCode: String, phone: String, type: Int) {\r\n        launchOnUI(true) {\r\n            ApiClient.request(IceService::class.java) {\r\n                it.sendCode(areaCode, phone, type)\r\n            }.doSuccess {\r\n                dismiss()\r\n                sendCodeLiveData.value = it ?: false\r\n            }\r\n                .doFailure { _, msg -> showToast(msg ?: \"\") }\r\n                .doError { _, error -> showToast(error.message) }\r\n                .procceed()\r\n        }\r\n    }\r\n\r\n    fun login(areaCode: String, inviterCode: String, mobile: String, password: String, smsCode: String, source: String, type: Int) {\r\n        launchOnUI(true) {\r\n            val treeMap = TreeMap<String, Any>()\r\n            treeMap[\"areaCode\"] = areaCode\r\n            treeMap[\"inviterCode\"] = inviterCode\r\n            treeMap[\"mobile\"] = mobile\r\n            treeMap[\"password\"] = password\r\n            treeMap[\"smsCode\"] = smsCode\r\n            treeMap[\"source\"] = source\r\n            treeMap[\"type\"] = type\r\n            val requestBody = RequestUtil.getRequestBody(treeMap)\r\n            ApiClient.request(IceService::class.java) {\r\n                it.login(requestBody)\r\n            }.doSuccess {\r\n                dismiss()\r\n                loginLiveData.value = it\r\n            }\r\n                .doFailure { _, msg -> showToast(msg ?: \"\") }\r\n                .doError { _, error -> showToast(error.message) }\r\n                .procceed()\r\n        }\r\n    }\r\n\r\n\r\n    fun setCountDown(time: String) {\r\n        countDown.value = time\r\n    }\r\n\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/hx/ice/model/SmsCodeModel.kt	(revision 162abf6f9827306ffbc65636520f8267eac161d4)
++++ app/src/main/java/com/hx/ice/model/SmsCodeModel.kt	(date 1619684567009)
+@@ -1,5 +1,6 @@
+ package com.hx.ice.model
+ 
++import androidx.lifecycle.LiveData
+ import androidx.lifecycle.MutableLiveData
+ import com.hx.ice.act.login.bean.LoginBean
+ import com.hx.ice.base.BaseViewModel
+@@ -18,7 +19,7 @@
+     val countDown = MutableLiveData<String>()
+     val sendCodeLiveData = MutableLiveData<Boolean>()
+     val loginLiveData = MutableLiveData<LoginBean>()
+-
++    val loginStateLiveData = MutableLiveData<Boolean>()
+     fun sendCode(areaCode: String, phone: String, type: Int) {
+         launchOnUI(true) {
+             ApiClient.request(IceService::class.java) {
+@@ -49,9 +50,16 @@
+             }.doSuccess {
+                 dismiss()
+                 loginLiveData.value = it
++                loginStateLiveData.value = true
+             }
+-                .doFailure { _, msg -> showToast(msg ?: "") }
+-                .doError { _, error -> showToast(error.message) }
++                .doFailure { _, msg ->
++                    showToast(msg ?: "")
++                    loginStateLiveData.value = false
++                }
++                .doError { _, error ->
++                    showToast(error.message)
++                    loginStateLiveData.value = false
++                }
+                 .procceed()
+         }
+     }

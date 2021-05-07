@@ -1,0 +1,79 @@
+Index: app/src/main/java/com/hx/ice/act/login/ui/VerificationCodeActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.hx.ice.act.login.ui\r\n\r\nimport android.os.Bundle\r\nimport android.text.TextUtils\r\nimport android.util.Log\r\nimport androidx.core.content.ContextCompat\r\nimport com.alibaba.android.arouter.facade.annotation.Autowired\r\nimport com.alibaba.android.arouter.facade.annotation.Route\r\nimport com.alibaba.android.arouter.launcher.ARouter\r\nimport com.hx.ice.R\r\nimport com.hx.ice.act.login.OnVerificationCodeListener\r\nimport com.hx.ice.base.BaseActivity\r\nimport com.hx.ice.common.RouterConstants.VERIFICATION_SMS_CODE\r\nimport com.hx.ice.databinding.ActivityVerificationCodeBinding\r\nimport com.hx.ice.model.SmsCodeModel\r\nimport com.hx.ice.util.ListenerUtil\r\nimport com.hx.ice.util.Preference\r\nimport com.hx.ice.util.RxTimerUtil\r\nimport com.hx.ice.widget.LoginSuccessDialog\r\nimport com.hx.ice.widget.SecurityCodeView\r\n\r\n\r\n/**\r\n * @ClassName VerificationCodeActivity\r\n * @description 描述 验证短信验证码\r\n * @author: Jason\r\n * @date:\r\n */\r\n@Route(path = VERIFICATION_SMS_CODE)\r\nclass VerificationCodeActivity : BaseActivity<ActivityVerificationCodeBinding, SmsCodeModel>() {\r\n    @JvmField\r\n    @Autowired\r\n    var areaCode = \"\"\r\n\r\n    @JvmField\r\n    @Autowired\r\n    var phone = \"\"\r\n\r\n    @JvmField\r\n    @Autowired\r\n    var type = -1\r\n\r\n    var accessToken by Preference(\"accessToken\", \"\")\r\n    var inviterCode by Preference(\"inviterCode\", \"\")\r\n    var nickname by Preference(\"nickname\", \"\")\r\n\r\n    override fun getLayoutId() = R.layout.activity_verification_code\r\n\r\n    override fun initialize(savedInstanceState: Bundle?) {\r\n        ARouter.getInstance().inject(this)\r\n        binding.viewListener = OnVerificationCodeListener(this)\r\n\r\n        binding.smsCodeModel = viewModel\r\n\r\n        viewModel.sendCode(areaCode, phone, type)\r\n\r\n        viewModel.sendCodeLiveData.observe(this) {\r\n            if (it) startCountDown()\r\n        }\r\n\r\n        viewModel.loginLiveData.observe(this) {\r\n            accessToken = it.accessToken ?: \"\"\r\n            inviterCode = it.inviterCode ?: \"\"\r\n            nickname = it.nickname ?: \"\"\r\n            LoginSuccessDialog.getInstance()?.show(supportFragmentManager, \"\")\r\n            finish()\r\n        }\r\n        viewModel.loginStateLiveData.observe(this){\r\n            if (!it){\r\n                binding.securityCodeView.run {\r\n                    clearEditText(this@VerificationCodeActivity)\r\n                    showInput(this@VerificationCodeActivity)\r\n                }\r\n            }\r\n\r\n        }\r\n        binding.securityCodeView.setInputCompleteListener(object : SecurityCodeView.InputCompleteListener {\r\n            override fun inputComplete(code: String?) {\r\n                code?.run {\r\n                    viewModel.login(areaCode, \"\", phone, \"\", code, \"\", 1)\r\n                }\r\n            }\r\n        })\r\n    }\r\n\r\n    override fun createViewModel() = SmsCodeModel()\r\n\r\n    private fun startCountDown() {\r\n        RxTimerUtil.startTimer(60,\r\n            {\r\n                viewModel.setCountDown(\"${getString(R.string.Resend)} ${it}s\")\r\n            }, {\r\n                viewModel.setCountDown(\"Resend Again\")\r\n                binding.tvResend.setTextColor(ContextCompat.getColor(this, R.color.color_FF2F51))\r\n            })\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/hx/ice/act/login/ui/VerificationCodeActivity.kt	(revision e3131da3b1609c2de665d5b320222e2ed11b341e)
++++ app/src/main/java/com/hx/ice/act/login/ui/VerificationCodeActivity.kt	(date 1619753608168)
+@@ -40,7 +40,7 @@
+     @Autowired
+     var type = -1
+ 
+-    var accessToken by Preference("accessToken", "")
++
+     var inviterCode by Preference("inviterCode", "")
+     var nickname by Preference("nickname", "")
+ 
+@@ -62,7 +62,6 @@
+             accessToken = it.accessToken ?: ""
+             inviterCode = it.inviterCode ?: ""
+             nickname = it.nickname ?: ""
+-            LoginSuccessDialog.getInstance()?.show(supportFragmentManager, "")
+             finish()
+         }
+         viewModel.loginStateLiveData.observe(this){
+Index: app/src/main/java/com/hx/ice/base/BaseActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.hx.ice.base\r\n\r\nimport android.graphics.drawable.Drawable\r\nimport android.view.KeyEvent\r\nimport android.view.View\r\nimport android.widget.TextView\r\nimport androidx.annotation.DrawableRes\r\nimport androidx.appcompat.widget.Toolbar\r\nimport androidx.core.content.ContextCompat\r\nimport androidx.databinding.ViewDataBinding\r\nimport com.hx.ice.R\r\nimport com.hx.ice.util.ToastUtil\r\nimport com.hx.ice.widget.LoadingDialog\r\nimport crossoverone.statuslib.StatusUtil\r\n\r\n/**\r\n * @ClassName: BaseActivity\r\n * @Description:\r\n * @Author: WY-HX\r\n * @Date: 2021/3/26 11:38\r\n */\r\nabstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel> : IceActivity<B, VM>() {\r\n    private var tvTitle: TextView? = null\r\n    private var rightTv: TextView? = null\r\n    private var toolbar: Toolbar? = null\r\n\r\n    lateinit var loadingDialog: LoadingDialog\r\n    override fun showLoadingUI(isShow: Boolean) {\r\n        if (isShow) {\r\n            if (!this::loadingDialog.isInitialized) {\r\n                loadingDialog = LoadingDialog()\r\n            } else {\r\n                if (loadingDialog.dialog != null) {\r\n                    if (loadingDialog.dialog!!.isShowing) {\r\n                        loadingDialog.dismiss()\r\n                    }\r\n                }\r\n\r\n            }\r\n            loadingDialog.show(supportFragmentManager, \"loadDialog\")\r\n        } else {\r\n            dismiss()\r\n        }\r\n\r\n    }\r\n\r\n    override fun dismiss() {\r\n        if (!this::loadingDialog.isInitialized) return\r\n        if (loadingDialog.dialog != null) {\r\n            if (loadingDialog.dialog!!.isShowing) {\r\n                loadingDialog.dismiss()\r\n            }\r\n        }\r\n\r\n    }\r\n\r\n    override fun showEmptyUI(isShow: Boolean) {\r\n\r\n    }\r\n\r\n    override fun showToast(message: Any) {\r\n        if (message is Int) {\r\n            ToastUtil.show(message)\r\n        } else {\r\n            ToastUtil.show(message.toString())\r\n        }\r\n        if (!this::loadingDialog.isInitialized) return\r\n        if (loadingDialog.dialog != null) {\r\n            if (loadingDialog.dialog!!.isShowing) {\r\n                loadingDialog.dismiss()\r\n            }\r\n        }\r\n\r\n    }\r\n\r\n    override fun iniTitle() {\r\n        toolbar = binding.root.findViewById(R.id.toolbar)\r\n        toolbar?.let {\r\n            tvTitle = toolbar?.findViewById(R.id.title_centerTv)\r\n            rightTv = toolbar?.findViewById(R.id.title_rightTv)\r\n            setNavigationOnClickListener(null)\r\n        }\r\n\r\n    }\r\n\r\n    /**\r\n     * Title VISIBLE or GONE\r\n     * */\r\n    fun setTitleVisibility(b: Boolean) {\r\n        toolbar?.visibility = if (b) View.VISIBLE else View.GONE\r\n    }\r\n\r\n    /**\r\n     * 左侧返回图标 resId\r\n     * */\r\n    fun setNavigationIcon(@DrawableRes resId: Int) {\r\n        toolbar?.setNavigationIcon(resId)\r\n    }\r\n\r\n    /**\r\n     * 左侧返回图标 drawable\r\n     * */\r\n    fun setNavigationIcon(drawable: Drawable) {\r\n        toolbar?.navigationIcon = drawable\r\n    }\r\n\r\n    /**\r\n     * 左侧箭头返回事件\r\n     * */\r\n    fun setNavigationOnClickListener(listener: View.OnClickListener? = null) {\r\n        toolbar?.setNavigationOnClickListener {\r\n            if (listener == null) finish() else listener\r\n        }\r\n    }\r\n\r\n    /**\r\n     * title  中心标题\r\n     * back   左侧返回事件\r\n     * rightBack 右侧返回事件\r\n     * */\r\n    fun setAppTitle(\r\n        title: String,\r\n        back: View.OnClickListener? = null,\r\n        rightBack: View.OnClickListener? = null\r\n    ) {\r\n        tvTitle?.text = title\r\n        setNavigationOnClickListener(back)\r\n        setRightOnClickListener(rightBack)\r\n    }\r\n\r\n    /**\r\n     * title  设置中心标题\r\n     * */\r\n    fun setCenterTitle(title: String) {\r\n        tvTitle?.text = title\r\n    }\r\n\r\n    /**\r\n     * 设置右侧title\r\n     * true VISIBLE else GONE\r\n     * */\r\n    fun setRightVisibility(b: Boolean) {\r\n        rightTv?.run {\r\n            visibility = if (b) View.VISIBLE else View.GONE\r\n        }\r\n    }\r\n\r\n    /**\r\n     * title  设置右侧标题\r\n     * */\r\n    fun setRightTitle(title: String) {\r\n        rightTv?.run {\r\n            visibility = View.VISIBLE\r\n            text = title\r\n        }\r\n    }\r\n\r\n    /**\r\n     * 设置右侧点击事件\r\n     * */\r\n    fun setRightOnClickListener(l: View.OnClickListener? = null) {\r\n        rightTv?.setOnClickListener(l)\r\n    }\r\n\r\n    override fun initStatusBar() {\r\n        StatusUtil.setUseStatusBarColor(this, ContextCompat.getColor(this, R.color.color_FFFFFF))\r\n\r\n    }\r\n\r\n\r\n    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {\r\n        if (keyCode == KeyEvent.ACTION_DOWN) {\r\n            finish()\r\n        }\r\n        return super.onKeyDown(keyCode, event)\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/hx/ice/base/BaseActivity.kt	(revision e3131da3b1609c2de665d5b320222e2ed11b341e)
++++ app/src/main/java/com/hx/ice/base/BaseActivity.kt	(date 1619753494793)
+@@ -1,6 +1,7 @@
+ package com.hx.ice.base
+ 
+ import android.graphics.drawable.Drawable
++import android.text.TextUtils
+ import android.view.KeyEvent
+ import android.view.View
+ import android.widget.TextView
+@@ -9,8 +10,10 @@
+ import androidx.core.content.ContextCompat
+ import androidx.databinding.ViewDataBinding
+ import com.hx.ice.R
++import com.hx.ice.util.Preference
+ import com.hx.ice.util.ToastUtil
+ import com.hx.ice.widget.LoadingDialog
++import com.hx.ice.widget.LoginSuccessDialog
+ import crossoverone.statuslib.StatusUtil
+ 
+ /**
+@@ -23,6 +26,8 @@
+     private var tvTitle: TextView? = null
+     private var rightTv: TextView? = null
+     private var toolbar: Toolbar? = null
++    var accessToken by Preference("accessToken", "")
++    var isLoginSuccess by Preference("LoginSuccess", false)
+ 
+     lateinit var loadingDialog: LoadingDialog
+     override fun showLoadingUI(isShow: Boolean) {
+@@ -174,4 +179,14 @@
+         }
+         return super.onKeyDown(keyCode, event)
+     }
++
++    override fun onResume() {
++        super.onResume()
++        if (!TextUtils.isEmpty(accessToken)&&!isLoginSuccess){
++            //显示过一次之后不在显示
++            isLoginSuccess=true
++            LoginSuccessDialog.getInstance()?.show(supportFragmentManager, "")
++        }
++
++    }
+ }
+\ No newline at end of file

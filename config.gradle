@@ -1,0 +1,138 @@
+ext {
+    android = [
+            compileSdkVersion: 30,
+            buildToolsVersion: "30.0.2",
+            minSdkVersion    : 21,
+            targetSdkVersion : 30,
+            versionCode      : 1,
+            versionName      : "1.0"
+    ]
+
+    jks = [
+            "filePath": "../ice.jks",
+            "alias"   : "ice",
+            "password": "hx123456",
+    ]
+
+    dependVersion = [
+            kotlin_version           : "1.4.32",
+            kotlincoroutines_version : "1.4.2",
+            lifecycle_version        : "2.3.0",
+            okhttp3Version           : "4.9.1",
+            retrofitSdkVersion       : "2.9.0",
+            rxJava                   : "3.0.12",
+            rxKotlin                 : "3.0.1",
+            rxAndroid                : "3.0.0",
+            rxpermissions            : "0.12",
+            arouterVersion           : "1.5.1",
+            androidx_Version         : "1.3.2",
+            appcompat_Version        : "1.2.0",
+            annotation_Version       : "1.2.0",
+            material_Version         : "1.3.0",
+            constraintlayout_Version : "2.0.4",
+            anko                     : "0.10.7",
+            glide_version            : '4.12.0',
+            adapterhelper_version    : '3.0.4',
+            smartrefresh_version     : '2.0.3',
+            magicindicator_version   : '1.7.0',
+            eventbus_version         : '3.2.0',
+            banner_version           : '2.1.0',
+            pickerview_version       : '4.1.9',
+            statusbarutil_version    : '1.3.4',
+            imageviewer_version      : '2.1.2',
+            textbannerview_version   : '1.0.5',
+            swiperecyclerview_version: '1.3.2',
+            zxing_version            : '3.4.1',
+            facebook_version         : '4,5'
+    ]
+
+    kotlin_stdlib = "org.jetbrains.kotlin:kotlin-stdlib:${dependVersion.kotlin_version}"
+
+    kotlinx_coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${dependVersion.kotlincoroutines_version}"
+
+    corektx = "androidx.core:core-ktx:${dependVersion.androidx_Version}"
+
+    androidxList = [
+            appcompat       : "androidx.appcompat:appcompat:${dependVersion.appcompat_Version}",
+            constraintlayout: "androidx.constraintlayout:constraintlayout:${dependVersion.constraintlayout_Version}",
+            annotation      : "androidx.annotation:annotation:${dependVersion.annotation_Version}"
+    ]
+
+    material = [
+            material: "com.google.android.material:material:${dependVersion.material_Version}"
+    ]
+
+    lifecycle_viewmodel = "androidx.lifecycle:lifecycle-viewmodel-ktx:${dependVersion.lifecycle_version}"
+
+    okhttp3 = [
+            okhttp : "com.squareup.okhttp3:okhttp:${dependVersion.okhttp3Version}",
+            logging: "com.squareup.okhttp3:logging-interceptor:${dependVersion.okhttp3Version}"
+    ]
+
+    retrofit2 = [
+            retrofit          : "com.squareup.retrofit2:retrofit:${dependVersion.retrofitSdkVersion}",
+            retrofit_converter: "com.squareup.retrofit2:converter-gson:${dependVersion.retrofitSdkVersion}"
+    ]
+
+    arouter = [arouter: "com.alibaba:arouter-api:${dependVersion.arouterVersion}"]
+
+    kapt_arouter = [kapt_arouter: "com.alibaba:arouter-compiler:${dependVersion.arouterVersion}"]
+
+    rxJava = [
+            "rxJava"   : "io.reactivex.rxjava3:rxjava:${dependVersion.rxJava}",
+            "rxAndroid": "io.reactivex.rxjava3:rxandroid:${dependVersion.rxAndroid}",
+            "rxKotlin" : "io.reactivex.rxjava3:rxkotlin:${dependVersion.rxKotlin}",
+    ]
+
+    rxpermissions = "com.github.tbruyelle:rxpermissions:${dependVersion.rxpermissions}"
+
+    glide = "com.github.bumptech.glide:glide:$dependVersion.glide_version"
+    glide_kapt = "com.github.bumptech.glide:compiler:$dependVersion.glide_version"
+
+    junit4 = 'junit:junit:4.+'
+    androidjunit = 'androidx.test.ext:junit:1.1.2'
+    androidxtest = 'androidx.test.espresso:espresso-core:3.3.0'
+
+    baserecyclerviewadapterhelper = "com.github.CymChad:BaseRecyclerViewAdapterHelper:${dependVersion.adapterhelper_version}"
+
+    smartrefresh = [
+            "kernel": "com.scwang.smart:refresh-layout-kernel:${dependVersion.smartrefresh_version}",
+            "header": "com.scwang.smart:refresh-header-classics:${dependVersion.smartrefresh_version}",
+            "footer": "com.scwang.smart:refresh-footer-classics:${dependVersion.smartrefresh_version}"
+    ]
+
+    magicindicator = "com.github.hackware1993:MagicIndicator:${dependVersion.magicindicator_version}"
+
+    eventbus = "org.greenrobot:eventbus:${dependVersion.eventbus_version}"
+    eventbusindex = "org.greenrobot:eventbus-annotation-processor:${dependVersion.eventbus_version}"
+
+    banner = "com.youth.banner:banner:${dependVersion.banner_version}"
+
+    pickerview = "com.contrarywind:Android-PickerView:${dependVersion.pickerview_version}"
+
+    statusbarutil = "com.github.crossoverone:StatusBarUtil:${dependVersion.statusbarutil_version}"
+
+    imageviewer = "com.github.iielse:imageviewer:${dependVersion.imageviewer_version}"
+
+    textbannerview = "com.superluo:textbannerview:${dependVersion.textbannerview_version}"
+
+    swiperecyclerview = "com.yanzhenjie.recyclerview:x:${dependVersion.swiperecyclerview_version}"
+
+    zxing = "com.google.zxing:core:${dependVersion.zxing_version}"
+
+    facebook = "com.facebook.android:facebook-android-sdk:[${dependVersion.facebook_version})"
+
+    agentweb= "com.github.Justson.AgentWeb:agentweb-core:v4.1.9-androidx" // (必选)
+
+
+
+    androidx_depend = androidxList.values()
+    material_depend = material.values()
+    okhttp3_depend = okhttp3.values()
+    rxJava_depend = rxJava.values()
+    retrofit2_depend = retrofit2.values()
+    arouter_depend = arouter.values()
+    kapt_arouter_depend = kapt_arouter.values()
+    smartrefresh_depend = smartrefresh.values()
+
+}

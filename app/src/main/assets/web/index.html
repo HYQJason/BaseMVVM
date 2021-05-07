@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+		content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>测试页面6666</title>
+</head>
+<body>
+    <input id="input" type="text">
+    <button id="submit">提交</button>
+    <script>
+        let submit = document.getElementById('submit')
+        submit.addEventListener('click',(e)=>{
+         let inp = document.getElementById('input').value
+            alert('提交成功')
+            alert(inp);
+           <!-- window.android.callAndroid();-->
+            if(window.android!=null&&typeof(window.android)!="undefined"){
+        window.android.callAndroid("你好，Android! ");
+      }else{
+         alert(typeof(window.android));
+      }
+           e.stopPropagation();
+        })
+    </script>
+</body>
+</html>

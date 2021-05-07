@@ -1,0 +1,156 @@
+Index: app/src/main/java/com/hx/ice/act/main/MainActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.hx.ice.act.main\r\n\r\nimport android.os.Bundle\r\nimport com.alibaba.android.arouter.facade.annotation.Route\r\nimport com.hx.ice.R\r\nimport com.hx.ice.base.BaseActivity\r\nimport com.hx.ice.common.RouterConstants\r\nimport com.hx.ice.common.RouterConstants.MAIN\r\nimport com.hx.ice.databinding.ActivityMainBinding\r\nimport com.hx.ice.model.MainModel\r\nimport com.hx.ice.util.DialogUtil\r\nimport com.hx.ice.util.ListenerUtil\r\nimport com.hx.ice.util.NavigationUtil.routerNavigation\r\nimport com.hx.ice.widget.LoginSuccessDialog\r\n\r\n@Route(path = MAIN)\r\nclass MainActivity : BaseActivity<ActivityMainBinding, MainModel>() {\r\n\r\n    override fun getLayoutId() = R.layout.activity_main\r\n\r\n    override fun createViewModel() = MainModel()\r\n\r\n    override fun initialize(savedInstanceState: Bundle?) {\r\n        binding.onClickUtil = ListenerUtil {\r\n            when (it.id) {\r\n                R.id.tv_login -> routerNavigation(RouterConstants.LOGIN)\r\n                R.id.tv_out -> {\r\n\r\n                }\r\n            }\r\n        }\r\n    }\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/hx/ice/act/main/MainActivity.kt	(revision cb69ab0040423596b903cb84875ab09822f190ba)
++++ app/src/main/java/com/hx/ice/act/main/MainActivity.kt	(date 1619770151678)
+@@ -1,6 +1,7 @@
+ package com.hx.ice.act.main
+ 
+ import android.os.Bundle
++import android.view.Gravity
+ import com.alibaba.android.arouter.facade.annotation.Route
+ import com.hx.ice.R
+ import com.hx.ice.base.BaseActivity
+@@ -8,10 +9,9 @@
+ import com.hx.ice.common.RouterConstants.MAIN
+ import com.hx.ice.databinding.ActivityMainBinding
+ import com.hx.ice.model.MainModel
+-import com.hx.ice.util.DialogUtil
+ import com.hx.ice.util.ListenerUtil
+ import com.hx.ice.util.NavigationUtil.routerNavigation
+-import com.hx.ice.widget.LoginSuccessDialog
++import com.hx.ice.widget.CustomPopupWindow
+ 
+ @Route(path = MAIN)
+ class MainActivity : BaseActivity<ActivityMainBinding, MainModel>() {
+Index: app/src/main/res/layout/dialog_custom.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<layout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\">\r\n\r\n    <data>\r\n\r\n    </data>\r\n\r\n    <androidx.constraintlayout.widget.ConstraintLayout\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"match_parent\">\r\n\r\n        <TextView\r\n            android:id=\"@+id/tv_custom\"\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            app:layout_constraintBottom_toBottomOf=\"parent\"\r\n            app:layout_constraintEnd_toEndOf=\"parent\"\r\n            app:layout_constraintStart_toStartOf=\"parent\"\r\n            app:layout_constraintTop_toTopOf=\"parent\" />\r\n\r\n    </androidx.constraintlayout.widget.ConstraintLayout>\r\n</layout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/dialog_custom.xml	(revision cb69ab0040423596b903cb84875ab09822f190ba)
++++ app/src/main/res/layout/dialog_custom.xml	(date 1619769635074)
+@@ -8,7 +8,8 @@
+ 
+     <androidx.constraintlayout.widget.ConstraintLayout
+         android:layout_width="match_parent"
+-        android:layout_height="match_parent">
++        android:background="@color/color_FFFFFF"
++        android:layout_height="wrap_content">
+ 
+         <TextView
+             android:id="@+id/tv_custom"
+Index: app/src/main/java/com/hx/ice/base/BasePopupWindow.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/hx/ice/base/BasePopupWindow.kt	(date 1619770151711)
++++ app/src/main/java/com/hx/ice/base/BasePopupWindow.kt	(date 1619770151711)
+@@ -0,0 +1,59 @@
++package com.hx.ice.base
++
++import android.app.Activity
++import android.content.Context
++import android.graphics.Color
++import android.graphics.drawable.ColorDrawable
++import android.view.LayoutInflater
++import android.view.View
++import android.view.WindowManager
++import android.widget.PopupWindow
++import androidx.databinding.DataBindingUtil
++import androidx.databinding.ViewDataBinding
++
++/**
++ * Created by wzx on 2018/5/8.
++ */
++abstract class BasePopupWindow<VB : ViewDataBinding>(protected var mActivity: Activity, w: Int, h: Int) {
++   private var contentView: View
++   private var popupWindow: PopupWindow
++
++
++   protected abstract fun layoutId(): Int
++    protected abstract fun initView()
++    protected var mBinding: VB = DataBindingUtil.inflate(mActivity.layoutInflater, layoutId(), null, false)
++
++
++    init {
++        contentView = mBinding.root
++        initView()
++        popupWindow = PopupWindow(contentView, w, h, true)
++        initWindow()
++    }
++
++    private fun initWindow() {
++        popupWindow.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
++        popupWindow.isOutsideTouchable = true
++        popupWindow.isTouchable = true
++        popupWindow.setOnDismissListener { darkenBackgroud(mActivity, 1f) }
++    }
++
++    fun showAsDropDown(anchor: View, xoff: Int, yoff: Int, light: Float) {
++        popupWindow.showAsDropDown(anchor, xoff, yoff)
++        darkenBackgroud(mActivity, light)
++    }
++
++    fun showAtLocation(parent: View?, gravity: Int, x: Int, y: Int, light: Float) {
++        popupWindow.showAtLocation(parent, gravity, x, y)
++        darkenBackgroud(mActivity, light)
++    }
++
++    private fun darkenBackgroud(activity: Activity, bgcolor: Float) {
++        val lp = activity.window.attributes
++        lp.alpha = bgcolor
++        activity.window.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
++        activity.window.attributes = lp
++    }
++
++
++}
+\ No newline at end of file
+Index: app/src/main/java/com/hx/ice/widget/CustomPopupWindow.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/hx/ice/widget/CustomPopupWindow.kt	(date 1619770151722)
++++ app/src/main/java/com/hx/ice/widget/CustomPopupWindow.kt	(date 1619770151722)
+@@ -0,0 +1,31 @@
++package com.hx.ice.widget
++
++import android.app.Activity
++import com.hx.ice.R
++import com.hx.ice.base.BasePopupWindow
++import com.hx.ice.databinding.DialogCustomBinding
++import com.hx.ice.util.DensityUtil
++
++/**
++ * @ClassName: CustomPopuwindow
++ * @Description:
++ * @Author: WY-HX
++ * @Date: 2021/4/30 15:31
++ */
++class CustomPopupWindow(mActivity: Activity) : BasePopupWindow<DialogCustomBinding>(mActivity, DensityUtil.dip2px(mActivity, 200f), DensityUtil.dip2px(mActivity, 200f)) {
++
++    /**
++     *
++     *   val customPopupWindow = CustomPopupWindow(this)
++    customPopupWindow.showAtLocation(binding.root, Gravity.CENTER,0,0,0.5f)
++     * */
++
++    override fun layoutId() = R.layout.dialog_custom
++
++    override fun initView() {
++        mBinding.tvCustom.text = "CustomPopupWindow"
++
++    }
++
++
++}
+\ No newline at end of file

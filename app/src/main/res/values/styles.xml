@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="DialogPushInOutAnimation">
+        <item name="android:windowEnterAnimation">@anim/dialog_push_in</item>
+        <item name="android:windowExitAnimation">@anim/dialog_push_out</item>
+    </style>
+    <style name="facebook_ButtonStyle" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorAccent">@color/color_ff4050b5</item>
+        <item name="backgroundTint">@color/color_ff4050b5</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">@dimen/dp_12</item>
+    </style>
+
+
+    <style name="text_editStyle" >
+        <item name="android:layout_height">@dimen/dp_47</item>
+        <item name="android:layout_width">@dimen/dp_49</item>
+        <item name="android:maxLength">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:inputType">number</item>
+        <item name="android:textCursorDrawable">@drawable/color_edit_cursor</item>
+        <item name="android:background">@drawable/bg_security_code_selector</item>
+        <item name="android:textColor">@color/color_222222</item>
+        <item name="android:textSize">@dimen/sp_28</item>
+
+    </style>
+
+    <style name="BaseAppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- //.AppCompat.Light.NoActionBar-->
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorAccent">@color/white</item>
+        <item name="colorPrimaryVariant">@color/white</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/black</item>
+        <item name="colorSecondaryVariant">@color/black</item>
+        <item name="colorOnSecondary">@color/black</item>
+
+    </style>
+
+    <style name="CommonActivityStyle" parent="BaseAppTheme.NoActionBar">
+        <item name="android:windowBackground">@color/color_FFFFFF</item>
+    </style>
+
+    <style name="BaseAppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+
+    </style>
+
+    <style name="dialogstyle" parent="Theme.AppCompat">
+
+        <!-- 是否浮现在activity之上 -->
+        <item name="android:windowIsFloating">true</item>
+        <!-- 无标题 -->
+        <item name="android:windowNoTitle">true</item>
+        <!-- 背景透明 -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!-- 模糊 -->
+        <item name="android:backgroundDimEnabled">true</item>
+
+
+        <!--   &lt;!&ndash;设置dialog的背景&ndash;&gt;
+           <item name="android:windowBackground">@android:color/transparent</item>
+           &lt;!&ndash;设置Dialog的windowFrame框为无&ndash;&gt;
+           <item name="android:windowFrame">@null</item>
+           &lt;!&ndash;设置无标题&ndash;&gt;
+           <item name="android:windowNoTitle">true</item>
+           &lt;!&ndash;是否浮现在activity之上&ndash;&gt;
+           <item name="android:windowIsFloating">true</item>
+           &lt;!&ndash;是否半透明&ndash;&gt;
+           <item name="android:windowIsTranslucent">true</item>
+           &lt;!&ndash;设置窗口内容不覆盖&ndash;&gt;
+           <item name="android:windowContentOverlay">@null</item>
+           &lt;!&ndash;设置动画，在这里使用让它继承系统的Animation.Dialog&ndash;&gt;
+           <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+           &lt;!&ndash;背景是否模糊显示&ndash;&gt;
+           <item name="android:backgroundDimEnabled">true</item>-->
+    </style>
+
+
+    <style name="TranslucentBackground">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:background">#00000000</item>
+        <item name="android:backgroundDimAmount">0.6</item>
+    </style>
+</resources>

@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">MVVM_Demo</string>
+    <string name="http_error_unknow" translatable="false">unknown error</string>
+    <string name="http_error_connect" translatable="false">Server busy</string>
+    <string name="http_error_connect_timeout" translatable="false">Network request timeout</string>
+    <string name="http_error_bad_network" translatable="false">Network request error</string>
+    <string name="http_error_parse" translatable="false">Parsing error</string>
+    <string name="http_cancel_request" translatable="false"></string>
+</resources>

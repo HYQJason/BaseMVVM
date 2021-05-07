@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="loginSmsActivity"
+            type="com.hx.ice.act.login.ui.LoginSmsPhoneActivity" />
+
+        <variable
+            name="onClickUtil"
+            type="com.hx.ice.util.ListenerUtil" />
+
+        <import type="com.hx.ice.constants.IceConstants" />
+
+        <import type="android.view.View" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".act.login.ui.LoginSmsPhoneActivity">
+
+        <include layout="@layout/title_layout" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_28"
+            android:layout_marginTop="@dimen/dp_24"
+            android:layout_marginEnd="@dimen/dp_24"
+            android:text="@{loginSmsActivity.title}"
+            android:textColor="@color/color_222222"
+            android:textSize="@dimen/sp_26"
+            tools:text="@string/activity_login_sms_phone_title" />
+
+        <TextView
+            android:id="@+id/tv_top_hint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_28"
+            android:layout_marginTop="@dimen/dp_12"
+            android:layout_marginEnd="@dimen/dp_28"
+            android:text="@{loginSmsActivity.topHint}"
+            android:textColor="@color/color_666666"
+            android:textSize="@dimen/sp_14"
+            tools:text="@string/activity_login_sms_phone_top_hint" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_28"
+            android:layout_marginTop="@dimen/dp_36"
+            android:layout_marginEnd="@dimen/dp_28">
+
+            <LinearLayout
+                android:id="@+id/ll_country"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dp_5"
+                android:orientation="vertical"
+                android:visibility="@{loginSmsActivity.activityType == IceConstants.Login_Find_Activity? View.GONE : View.VISIBLE}">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Country_Code"
+                    android:textColor="@color/color_222222"
+                    android:textSize="@dimen/sp_14" />
+
+                <TextView
+                    android:id="@+id/tv_code"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:background="@drawable/login_sms_phone_bg"
+                    android:paddingLeft="@dimen/dp_38"
+                    android:paddingTop="@dimen/dp_14"
+                    android:paddingRight="@dimen/dp_38"
+                    android:paddingBottom="@dimen/dp_14"
+                    android:text="@string/add_nine_one"
+                    android:textColor="@color/color_222222"
+                    android:textSize="@dimen/sp_16" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_phone_hint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Phone_number"
+                    android:textColor="@color/color_222222"
+                    android:textSize="@dimen/sp_14" />
+
+                <EditText
+                    android:id="@+id/et_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:background="@drawable/login_sms_phone_bg"
+                    android:gravity="center"
+                    android:hint="@string/mobile_number"
+                    android:inputType="phone"
+                    android:maxLength="10"
+                    android:paddingLeft="@dimen/dp_39"
+                    android:paddingTop="@dimen/dp_14"
+                    android:paddingRight="@dimen/dp_39"
+                    android:paddingBottom="@dimen/dp_14"
+                    android:textColor="@color/color_222222"
+                    android:textColorHint="@color/color_CCCCCC"
+                    android:textSize="@dimen/sp_16" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_bottom_hint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_28"
+            android:layout_marginTop="@dimen/dp_16"
+            android:layout_marginEnd="@dimen/dp_28"
+            android:text="@string/activity_login_sms_phone_bottom_hint"
+            android:textColor="@color/color_ADADAD"
+            android:textSize="@dimen/sp_12" />
+
+        <ImageView
+            android:id="@+id/iv_next"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_4"
+            android:layout_marginTop="@dimen/dp_36"
+            android:layout_marginEnd="@dimen/dp_4"
+            android:onClick="@{onClickUtil.onClick}"
+            android:scaleType="fitXY"
+            android:src="@mipmap/login_next_unable" />
+
+    </LinearLayout>
+
+</layout>
