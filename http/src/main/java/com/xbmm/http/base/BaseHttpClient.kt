@@ -5,7 +5,7 @@ import android.util.Log
 import android.util.LruCache
 import com.google.gson.Gson
 import com.google.gson.JsonParseException
-import com.hx.ice.base.BaseApplication.Companion.instance
+import com.hx.ice.base.BasicApplication.Companion.instance
 import com.hx.ice.base.Preference
 import com.xbmm.http.constants.HttpConstants.deviceType
 import com.xbmm.http.constants.HttpConstants.deviceUUID

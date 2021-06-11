@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.net.ConnectivityManager
 import android.net.wifi.WifiManager
-import com.hx.ice.base.BaseApplication
+import com.hx.ice.base.BasicApplication
 import com.xbmm.http.constants.HttpConstants.Risk_Net_Type_Mobile
 import com.xbmm.http.constants.HttpConstants.Risk_Net_Type_No
 import com.xbmm.http.constants.HttpConstants.Risk_Net_Type_Wifi
@@ -109,7 +109,7 @@ class DeviceInfoUtil {
          * 获取ip地址
          */
         fun getIPAddress(): String {
-            val info = (BaseApplication.instance.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager).activeNetworkInfo
+            val info = (BasicApplication.instance.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager).activeNetworkInfo
             if (info != null && info.isConnected) {
                 if (info.type == ConnectivityManager.TYPE_MOBILE) {//当前使用2G/3G/4G网络
                     try {
@@ -129,7 +129,7 @@ class DeviceInfoUtil {
                     }
 
                 } else if (info.type == ConnectivityManager.TYPE_WIFI) {//当前使用无线网络
-                    val wifiManager = BaseApplication.instance.applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
+                    val wifiManager = BasicApplication.instance.applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
                     val wifiInfo = wifiManager.connectionInfo
                     return intIP2StringIP(wifiInfo.ipAddress)
                 }
@@ -180,7 +180,7 @@ class DeviceInfoUtil {
          * 获取网络类型
          */
         fun getNetType(): Int {
-            val info = (BaseApplication.instance.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager).activeNetworkInfo
+            val info = (BasicApplication.instance.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager).activeNetworkInfo
             if (info != null && info.isConnected) {
                 when (info.type) {
                     //当前使用2G/3G/4G网络

@@ -13,7 +13,7 @@ import kotlin.properties.Delegates
  * @Author: WY-HX
  * @Date: 2021/4/1 16:26
  */
-class IceApplication : BaseApplication() {
+class BaseApplication : BasicApplication() {
 
     companion object {
         private const val TAG = "MVApplication"
@@ -21,7 +21,7 @@ class IceApplication : BaseApplication() {
         var context: Context by Delegates.notNull()
             private set
 
-        lateinit var instance: IceApplication
+        lateinit var instance: BaseApplication
 
     }
 
@@ -32,7 +32,7 @@ class IceApplication : BaseApplication() {
         context = applicationContext
         initARouter()
         AutoDensityUtil.init()
-//        EventBus.builder().addIndex(MyEventBusIndex()).installDefaultEventBus()
+       // EventBus.builder().addIndex(MyEventBusIndex()).installDefaultEventBus()
     }
 
     private fun initARouter() {

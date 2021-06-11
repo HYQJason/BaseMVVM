@@ -21,7 +21,7 @@ import crossoverone.statuslib.StatusUtil
  * @Author: WY-HX
  * @Date: 2021/3/26 11:38
  */
-abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel> : IceActivity<B, VM>() {
+abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel> : BasicActivity<B, VM>() {
     private var tvTitle: TextView? = null
     private var rightTv: TextView? = null
     private var toolbar: Toolbar? = null

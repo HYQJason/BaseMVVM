@@ -1,4 +1,4 @@
 include ':base'
 include ':http'
 include ':app'
-rootProject.name = "ice"
+rootProject.name = "BaseMVVM"

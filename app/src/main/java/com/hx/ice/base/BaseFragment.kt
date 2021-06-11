@@ -10,7 +10,7 @@ import com.hx.ice.widget.LoadingDialog
  * @Author: WY-HX
  * @Date: 2021/4/19 10:23
  */
- abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel> : IceFragment<B, VM>() {
+ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel> : BasicFragment<B, VM>() {
     lateinit var loadingDialog: LoadingDialog
     override fun showLoadingUI(isShow: Boolean) {
         if (isShow) {

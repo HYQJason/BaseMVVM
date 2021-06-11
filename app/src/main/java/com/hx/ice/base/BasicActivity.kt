@@ -12,14 +12,14 @@ import com.hx.ice.util.StackManageUtil
 
 
 /**
- * @ClassName: IceActivity
+ * @ClassName: BasicActivity
  * @Description:
  * @Author: WY-HX
  * @Date: 2021/3/26 10:42
  */
-private const val TAG = "IceActivity"
+private const val TAG = "BasicActivity"
 
-abstract class IceActivity<B : ViewDataBinding, VM : BaseViewModel> : AppCompatActivity(),
+abstract class BasicActivity<B : ViewDataBinding, VM : BaseViewModel> : AppCompatActivity(),
     ViewBehavior {
 
     lateinit var viewModel: VM

@@ -12,9 +12,9 @@ import android.widget.Toast
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import com.hx.ice.R
-import com.hx.ice.base.BaseApplication
-import com.hx.ice.base.BaseApplication.Companion.instance
-import com.hx.ice.base.BaseApplication.Companion.mainThreadId
+import com.hx.ice.base.BasicApplication
+import com.hx.ice.base.BasicApplication.Companion.instance
+import com.hx.ice.base.BasicApplication.Companion.mainThreadId
 
 /**
  * @Function:Toast工具类
@@ -33,7 +33,7 @@ object ToastUtil {
      * 获取主线程的handler
      */
     private fun getHandler(): Handler {
-        return BaseApplication.handler
+        return BasicApplication.handler
     }
 
     /**
@@ -70,7 +70,7 @@ object ToastUtil {
 
     private fun showToastSafe(msg: CharSequence) {
         if (mToast == null) {
-            mToast = Toast.makeText(BaseApplication.instance, msg, Toast.LENGTH_LONG)
+            mToast = Toast.makeText(BasicApplication.instance, msg, Toast.LENGTH_LONG)
             try {
                 mToast!!.show()
             } catch (e: java.lang.Exception) {
@@ -103,7 +103,7 @@ object ToastUtil {
     fun show(@StringRes stringId: Int) {
 
         if (mToast == null) {
-            mToast = Toast.makeText(BaseApplication.instance, stringId, Toast.LENGTH_LONG)
+            mToast = Toast.makeText(BasicApplication.instance, stringId, Toast.LENGTH_LONG)
             try {
                 mToast!!.show()
             } catch (e: java.lang.Exception) {
@@ -139,7 +139,7 @@ object ToastUtil {
             return
         }
         if (mToast == null) {
-            mToast = Toast.makeText(BaseApplication.instance, msg, Toast.LENGTH_SHORT)
+            mToast = Toast.makeText(BasicApplication.instance, msg, Toast.LENGTH_SHORT)
             mToast!!.setGravity(Gravity.CENTER, 0, 0)
             try {
                 mToast!!.show()
@@ -211,8 +211,8 @@ object ToastUtil {
         tip: String?,
         @DrawableRes imgResId: Int
     ) {
-        val toast = Toast(BaseApplication.instance)
-        val inflater = LayoutInflater.from(BaseApplication.instance)
+        val toast = Toast(BasicApplication.instance)
+        val inflater = LayoutInflater.from(BasicApplication.instance)
         val view: View = inflater.inflate(R.layout.toast_tip, null, false)
         val textView = view.findViewById<View>(R.id.tv_toast_tip) as TextView
         if (imgResId != -1) {

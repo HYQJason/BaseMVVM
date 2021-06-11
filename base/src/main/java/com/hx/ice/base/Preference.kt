@@ -16,7 +16,7 @@ class Preference<T>(val name: String, private val default: T) {
         private val file_name = "ice_android_file"
 
         private val prefs: SharedPreferences by lazy {
-            BaseApplication.instance.getSharedPreferences(file_name, Context.MODE_PRIVATE)
+            BasicApplication.instance.getSharedPreferences(file_name, Context.MODE_PRIVATE)
         }
 
         /**

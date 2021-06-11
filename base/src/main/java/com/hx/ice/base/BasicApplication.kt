@@ -12,7 +12,7 @@ import android.os.Process
  * @Author: WY-HX
  * @Date: 2021/4/12 14:00
  */
- abstract class BaseApplication  : Application() {
+ abstract class BasicApplication  : Application() {
     override fun onCreate() {
         super.onCreate()
         mainThreadId = Process.myTid()
@@ -24,7 +24,7 @@ import android.os.Process
 
 
     companion object {
-        lateinit var instance: BaseApplication
+        lateinit var instance: BasicApplication
 
         /**
          * 获取主线程ID

@@ -12,7 +12,7 @@ import android.text.Spanned
 import android.text.style.*
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
-import com.hx.ice.base.IceApplication
+import com.hx.ice.base.BaseApplication
 
 /**
  * <pre>
@@ -462,7 +462,7 @@ class SpannableStringUtils private constructor() {
             }
             if (imageIsBitmap || imageIsDrawable || imageIsUri || imageIsResourceId) {
                 if (imageIsBitmap) {
-                    mBuilder.setSpan(ImageSpan(IceApplication.instance, bitmap!!), start, end, flag)
+                    mBuilder.setSpan(ImageSpan(BaseApplication.instance, bitmap!!), start, end, flag)
                     bitmap = null
                     imageIsBitmap = false
                 } else if (imageIsDrawable) {
@@ -470,11 +470,11 @@ class SpannableStringUtils private constructor() {
                     drawable = null
                     imageIsDrawable = false
                 } else if (imageIsUri) {
-                    mBuilder.setSpan(ImageSpan(IceApplication.instance, uri!!), start, end, flag)
+                    mBuilder.setSpan(ImageSpan(BaseApplication.instance, uri!!), start, end, flag)
                     uri = null
                     imageIsUri = false
                 } else {
-                    mBuilder.setSpan(ImageSpan(IceApplication.instance, resourceId), start, end, flag)
+                    mBuilder.setSpan(ImageSpan(BaseApplication.instance, resourceId), start, end, flag)
                     resourceId = 0
                     imageIsResourceId = false
                 }

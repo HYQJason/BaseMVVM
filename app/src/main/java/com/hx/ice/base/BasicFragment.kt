@@ -18,7 +18,7 @@ import com.hx.ice.extensions.observeNonNull
  * @Author: WY-HX
  * @Date: 2021/4/16 10:27
  */
-abstract class IceFragment<B : ViewDataBinding, VM : BaseViewModel> : Fragment(), ViewBehavior {
+abstract class BasicFragment<B : ViewDataBinding, VM : BaseViewModel> : Fragment(), ViewBehavior {
 
     lateinit var viewModel: VM
 

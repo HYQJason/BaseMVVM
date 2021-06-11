@@ -1,6 +1,6 @@
 <resources>
     //translatable false 表示不参与国际化 但必须默认写在默认的string.xml里面,意思就是不管系统是什么语言,它都只显示xx。
-    <string name="app_name">ShareKart</string>
+    <string name="app_name">BASEMVVM</string>
     <string name="SMS">SMS</string>
     <string name="Password_Login">Password Login</string>
     <string name="Facebook_Login">Facebook Login</string>

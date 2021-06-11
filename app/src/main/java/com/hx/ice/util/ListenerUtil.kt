@@ -1,7 +1,7 @@
 package com.hx.ice.util
 
 import android.view.View
-import com.hx.ice.base.IceApplication
+import com.hx.ice.base.BaseApplication
 
 /**
  * @ClassName: ListenerUtil
@@ -12,7 +12,7 @@ import com.hx.ice.base.IceApplication
 open class ListenerUtil(private  val callback: ((View) -> Unit)? = null) {
 
     open  fun onClick(v: View) {
-        if (!NetUtil.isNetworkAvailable(IceApplication.instance)) {
+        if (!NetUtil.isNetworkAvailable(BaseApplication.instance)) {
             ToastUtil.show("The network connection is abnormal. Please try again later")
             return
         }
