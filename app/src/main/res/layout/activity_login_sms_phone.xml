@@ -17,6 +17,15 @@
 
         <import type="android.view.View" />
 
+
+        <variable
+            name="vm"
+            type="com.hx.ice.model.LoginSmsPhoneModel" />
+
+        <variable
+            name="big"
+            type="Boolean" />
+
     </data>
 
     <LinearLayout
@@ -86,7 +95,6 @@
                     android:text="@string/add_nine_one"
                     android:textColor="@color/color_222222"
                     android:textSize="@dimen/sp_16" />
-
             </LinearLayout>
 
             <LinearLayout
@@ -144,8 +152,8 @@
             android:layout_marginTop="@dimen/dp_36"
             android:layout_marginEnd="@dimen/dp_4"
             android:onClick="@{onClickUtil.onClick}"
-            android:scaleType="fitXY"
-            android:src="@mipmap/login_next_unable" />
+            android:src="@{vm.isTrue()? @drawable/login_next_enable:@drawable/login_next_unable }" />
+
 
     </LinearLayout>
 

@@ -33,6 +33,10 @@ class LoginSmsPhoneActivity : BaseActivity<ActivityLoginSmsPhoneBinding, LoginSm
     override fun initialize(savedInstanceState: Bundle?) {
         ARouter.getInstance().inject(this)
         binding.loginSmsActivity = this
+        binding.vm=viewModel
+        viewModel.phoneNum.observe(this){
+            binding.vm=viewModel
+        }
         initView()
         initOnClick()
         initEditTextWatcher()
@@ -74,7 +78,8 @@ class LoginSmsPhoneActivity : BaseActivity<ActivityLoginSmsPhoneBinding, LoginSm
 
     private fun initEditTextWatcher() {
         binding.etPhone.afterTextChanged {
-            binding.ivNext.setImageResource(if (it.length >= phoneLength) R.mipmap.login_next_enable else R.mipmap.login_next_unable)
+            viewModel.setPhoneNum(it)
+           // binding.ivNext.setImageResource(if (it.length >= phoneLength) R.mipmap.login_next_enable else R.mipmap.login_next_unable)
         }
     }
 

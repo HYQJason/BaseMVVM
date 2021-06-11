@@ -9,6 +9,12 @@
             name="onClickUtil"
             type="com.hx.ice.util.ListenerUtil" />
 
+        <import type="com.hx.ice.util.GlideAdapter" />
+
+        <variable
+            name="url"
+            type="String" />
+
     </data>
 
     <LinearLayout
@@ -40,6 +46,13 @@
             android:padding="@dimen/dp_20"
             android:text="退出"
             android:textColor="@color/color_FFFFFF" />
+       <!-- 不能使用@mipmap/-->
+        <ImageView
+            app:error="@{@drawable/error}"
+            app:placeHolder="@{@drawable/place_holder}"
+            android:src="@{url}"
+            android:layout_width="@dimen/dp_200"
+            android:layout_height="@dimen/dp_200" />
 
     </LinearLayout>
 </layout>

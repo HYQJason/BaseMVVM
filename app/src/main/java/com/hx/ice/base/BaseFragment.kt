@@ -45,10 +45,10 @@ import com.hx.ice.widget.LoadingDialog
 
     }
 
-    override fun showToast(message: Any) {
+    override fun showToast(arg: Any) {
         Toast.makeText(
             activity,
-            if (message is Int) resources.getText(message) else message.toString(),
+            if (arg is Int) resources.getText(arg) else arg.toString(),
             Toast.LENGTH_SHORT
         ).show()
         if (!this::loadingDialog.isInitialized) return

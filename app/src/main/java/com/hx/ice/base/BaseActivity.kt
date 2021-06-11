@@ -63,11 +63,11 @@ abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel> : BasicActi
 
     }
 
-    override fun showToast(message: Any) {
-        if (message is Int) {
-            ToastUtil.show(message)
+    override fun showToast(arg: Any) {
+        if (arg is Int) {
+            ToastUtil.show(arg)
         } else {
-            ToastUtil.show(message.toString())
+            ToastUtil.show(arg.toString())
         }
         if (!this::loadingDialog.isInitialized) return
         if (loadingDialog.dialog != null) {

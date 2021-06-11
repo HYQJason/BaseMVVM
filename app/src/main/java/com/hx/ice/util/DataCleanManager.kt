@@ -102,9 +102,6 @@ object DataCleanManager {
         cleanExternalCache(context)
         cleanDatabases(context)
         cleanFiles(context)
-        if (filepath == null) {
-            return
-        }
         for (filePath in filepath) {
             cleanCustomCache(filePath)
         }
@@ -166,7 +163,7 @@ object DataCleanManager {
                     if (!file.isDirectory) { // 如果是文件，删除
                         file.delete()
                     } else { // 目录
-                        if (file.listFiles().size == 0) { // 目录下没有文件或者目录，删除
+                        if (file.listFiles().isEmpty()) { // 目录下没有文件或者目录，删除
                             file.delete()
                         }
                     }
@@ -192,21 +189,21 @@ object DataCleanManager {
         val megaByte = kiloByte / 1024
         if (megaByte < 1) {
             val result1 =
-                BigDecimal(java.lang.Double.toString(kiloByte))
+                BigDecimal(kiloByte.toString())
             return result1.setScale(2, BigDecimal.ROUND_HALF_UP)
                 .toPlainString() + "KB"
         }
         val gigaByte = megaByte / 1024
         if (gigaByte < 1) {
             val result2 =
-                BigDecimal(java.lang.Double.toString(megaByte))
+                BigDecimal(megaByte.toString())
             return result2.setScale(2, BigDecimal.ROUND_HALF_UP)
                 .toPlainString() + "MB"
         }
         val teraBytes = gigaByte / 1024
         if (teraBytes < 1) {
             val result3 =
-                BigDecimal(java.lang.Double.toString(gigaByte))
+                BigDecimal(gigaByte.toString())
             return result3.setScale(2, BigDecimal.ROUND_HALF_UP)
                 .toPlainString() + "GB"
         }
@@ -219,30 +216,5 @@ object DataCleanManager {
     fun getCacheSize(file: File): String {
         return getFormatSize(getFolderSize(file).toDouble())
     }
-    /**
-     * 获取Glide造成的缓存大小
-     *
-     * @return CacheSize
-     */
-    /*    public static String getCacheSize(Context context) {
-        try {
-            return getFormatSize(getFolderSize(new File(context.getCacheDir() + "/"+ InternalCacheDiskCacheFactory.DEFAULT_DISK_CACHE_DIR)));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return "";
-    }*/
-    /*public static long getTotal(Context context) {
 
-    File file=context. getExternalCacheDir();
-    long size = 0;
-    try {
-        size = getFolderSize(file)+getFolderSize(new File(context.getCacheDir() + "/"+ InternalCacheDiskCacheFactory.DEFAULT_DISK_CACHE_DIR));
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
-
-
-    return size;
-}*/
 }

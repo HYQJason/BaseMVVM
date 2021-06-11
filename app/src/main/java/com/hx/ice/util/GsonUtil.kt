@@ -16,13 +16,7 @@ object GsonUtil {
      * @param object
      * @return
      */
-    fun gsonString(`object`: Any?): String? {
-        var gsonString: String? = null
-        if (gson != null) {
-            gsonString = gson.toJson(`object`)
-        }
-        return gsonString
-    }
+    fun gsonString(`object`: Any?)=gson.toJson(`object`)
 
     /**
      * 转成bean
@@ -31,13 +25,7 @@ object GsonUtil {
      * @param cls
      * @return
      */
-    fun <T> gsonToBean(gsonString: String?, cls: Class<T>?): T? {
-        var t: T? = null
-        if (gson != null) {
-            t = gson.fromJson(gsonString, cls)
-        }
-        return t
-    }
+    fun <T> gsonToBean(gsonString: String?, cls: Class<T>?)=gson.fromJson(gsonString, cls)
 
     /**
      * 转成list
@@ -49,7 +37,6 @@ object GsonUtil {
      * @return
     </T> */
     fun <T> gsonToList(json: String?, cls: Class<T>?): List<T> {
-        val gson = Gson()
         val list: MutableList<T> = ArrayList()
         val array = JsonParser().parse(json).asJsonArray
         for (elem in array) {
@@ -65,15 +52,11 @@ object GsonUtil {
      * @return
      */
     fun <T> gsonToListMaps(gsonString: String?): List<Map<String, T>>? {
-        var list: List<Map<String, T>>? = null
-        if (gson != null) {
-            list = gson.fromJson(
-                gsonString,
-                object :
-                    TypeToken<List<Map<String?, T>?>?>() {}.type
-            )
-        }
-        return list
+        return gson.fromJson(
+            gsonString,
+            object :
+                TypeToken<List<Map<String?, T>?>?>() {}.type
+        )
     }
 
     /**
@@ -83,14 +66,10 @@ object GsonUtil {
      * @return
      */
     fun <T> gsonToMaps(gsonString: String?): Map<String, T>? {
-        var map: Map<String, T>? = null
-        if (gson != null) {
-            map = gson.fromJson(
-                gsonString,
-                object : TypeToken<Map<String?, T>?>() {}.type
-            )
-        }
-        return map
+        return  gson.fromJson(
+            gsonString,
+            object : TypeToken<Map<String?, T>?>() {}.type
+        )
     }
 
     /**
@@ -105,8 +84,5 @@ object GsonUtil {
     }
 
     init {
-        if (gson == null) {
-            gson = Gson()
-        }
     }
 }

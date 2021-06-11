@@ -32,13 +32,6 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginModel>() {
         StatusUtil.setUseStatusBarColor(this, ContextCompat.getColor(this, R.color.color_00000000))
     }
 
-    fun loginClick(view: View) {
-        when (view.id) {
-            R.id.bt_sms -> routerNavigation(LOGIN_SMS_PHONE, "activityType", Login_SMS_Activity)
-            R.id.bt_password -> routerNavigation(LOGIN_PASSWORD, "activityType", Login_Password_Activity)
-            R.id.bt_facebook -> {
-            }
-        }
-    }
+
 
 }

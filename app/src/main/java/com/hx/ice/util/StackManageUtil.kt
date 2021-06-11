@@ -43,7 +43,7 @@ object StackManageUtil {
                     } catch (e: Exception) {
                     }
                 }
-//                cacheStack.removeAt(index)
+               cacheStack.removeAt(index)
                 return
             }
         }

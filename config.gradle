@@ -10,7 +10,7 @@ ext {
 
     jks = [
             "filePath": "../basemvvm.jks",
-            "alias"   : "basemvvm",
+            "alias"   : "ice",
             "password": "hx123456",
     ]
 

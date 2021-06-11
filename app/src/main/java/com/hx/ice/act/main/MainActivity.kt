@@ -16,11 +16,16 @@ import com.hx.ice.widget.CustomPopupWindow
 @Route(path = MAIN)
 class MainActivity : BaseActivity<ActivityMainBinding, MainModel>() {
 
+
+    private val imageUrl="https://img0.baidu.com/it/u=1591022950,3097001901&fm=26&fmt=auto&gp=0.jpg"
+
     override fun getLayoutId() = R.layout.activity_main
 
     override fun createViewModel() = MainModel()
 
+
     override fun initialize(savedInstanceState: Bundle?) {
+        binding.url=imageUrl
         binding.onClickUtil = ListenerUtil {
             when (it.id) {
                 R.id.tv_login -> {

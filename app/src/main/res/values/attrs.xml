@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="error" format="reference"> </attr>
+    <attr name="placeHolder" format="reference"> </attr>
+
+</resources>
