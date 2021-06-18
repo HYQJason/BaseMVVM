@@ -1,7 +1,6 @@
 package com.hx.ice.act.main
 
 import android.os.Bundle
-import android.view.Gravity
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.hx.ice.R
 import com.hx.ice.base.BaseActivity
@@ -11,7 +10,6 @@ import com.hx.ice.databinding.ActivityMainBinding
 import com.hx.ice.model.MainModel
 import com.hx.ice.util.ListenerUtil
 import com.hx.ice.util.NavigationUtil.routerNavigation
-import com.hx.ice.widget.CustomPopupWindow
 
 @Route(path = MAIN)
 class MainActivity : BaseActivity<ActivityMainBinding, MainModel>() {
@@ -32,7 +30,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainModel>() {
                     routerNavigation(RouterConstants.LOGIN)
                 }
                 R.id.tv_out -> {
-
+                   // ShareFactory.getShareStrategy("text")?.share("content")
                 }
             }
         }

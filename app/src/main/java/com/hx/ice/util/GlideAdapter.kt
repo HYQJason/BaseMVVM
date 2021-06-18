@@ -5,6 +5,12 @@ import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import android.graphics.drawable.Drawable
+import android.graphics.drawable.ColorDrawable
+
+import androidx.databinding.BindingConversion
+
+
+
 
 
 
@@ -39,5 +45,10 @@ object GlideAdapter {
             .placeholder(holderDrawable)
             .error(errorDrawable)
             .into(imageView)
+    }
+
+    @BindingConversion
+    fun convertColorToDrawable(color: Int): ColorDrawable {
+        return ColorDrawable(color)
     }
 }
